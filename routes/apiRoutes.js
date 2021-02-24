@@ -16,14 +16,14 @@ module.exports = (app) => {
   // Retrive one note
   app.get("/api/notes/:id", (req, res) => {
     const id = req.params.id;
-    console.log("Looking for note", id);
+    // console.log("Looking for note", id);
     res.json({});
   });
 
   // Create a note.
   app.post("/api/notes", (req, res) => {
     const id = generateUniqueId({
-      length: 32,
+      length: 1000,
       useLetters: false,
     });
     const notes = JSON.parse(
@@ -39,14 +39,20 @@ module.exports = (app) => {
       path.join(__dirname, "../db/db.json"),
       JSON.stringify(notes)
     );
-    console.log("New note created", req.body);
+    // console.log("New note created", req.body);
     res.json({});
   });
 
-  //Delete a note
-  app.post("/api/notes/:id", (req, res) => {
-    const id = req.params.id;
-    console.log("deleting note", id);
-    res.json({});
-  });
+  // //Delete a note
+  // app.delete("/api/notes/:id", (req, res) => {
+  //   const notes = JSON.parse(
+  //     fs.readFileSync(path.join(__dirname, "../db/db.json"))
+  //   );
+  //   res.send(path.join(__dirname, "../db/db.json"));
+  //   notes.push({
+  //     id: '',
+  //     title: '',
+  //     text:'' ,
+  //   });
+  // });
 };
