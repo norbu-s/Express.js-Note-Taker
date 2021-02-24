@@ -1,38 +1,35 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const generateUniqueId = require('generate-unique-id');
-
-const tableData = require('../data/tableData');
-const waitListData = require('../data/waitinglistData');
-
-const id = generateUniqueId({
-  length: 32,
-  useLetters: false
-});
- 
+const fs = require("fs");
+const path = require("path");
+const generateUniqueId = require("generate-unique-id");
+const db = require ('../db/db.json');
 
 module.exports = (app) => {
+  // Retrieve all notes
+  app.get("/api/notes", (req, res) => res.json(db));
 
-  app.get('/api/tables', (req, res) => res.json(tableData));
-
-  app.get('/api/waitlist', (req, res) => res.json(waitListData));
-
-
-  app.post('/api/tables', (req, res) => {
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    } else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
+  // Retrive one note
+  app.get("/api/notes/:id", (req, res) => {
+    const id = req.params.id;
+    console.log("Looking for note", id);
+    res.json({
+      
+    });
   });
 
-  app.post('/api/clear', (req, res) => {
-    tableData.length = 0;
-    waitListData.length = 0;
+  // Create a note.
+  app.post("/api/notes", (req, res) => {
+    const id = generateUniqueId({
+      length: 32,
+      useLetters: false,
+    });
+    console.log("New note created", req.body);
+    res.json({});
+  });
 
-    res.json({ ok: true });
+  //Delete a note
+  app.post("/api/notes/:id", (req, res) => {
+    const id = req.params.id;
+    console.log("deleting note", id);
+    res.json({});
   });
 };
