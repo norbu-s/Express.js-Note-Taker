@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const generateUniqueId = require("generate-unique-id");
-const db = require ('../db/db.json');
+const db = require("../db/db.json");
+const { json } = require("body-parser");
 
 module.exports = (app) => {
   // Retrieve all notes
@@ -11,9 +12,7 @@ module.exports = (app) => {
   app.get("/api/notes/:id", (req, res) => {
     const id = req.params.id;
     console.log("Looking for note", id);
-    res.json({
-      
-    });
+    res.json({});
   });
 
   // Create a note.
@@ -22,6 +21,14 @@ module.exports = (app) => {
       length: 32,
       useLetters: false,
     });
+    const notes = JSON.parse(fs.readFileSync("../db/db.json"));
+    notes.push({
+      id: id,
+      title: req.body.title,
+      text: req.body.text,
+    });
+
+    fs.writeFileSync("../db/db.json", JSON.stringify(notes));
     console.log("New note created", req.body);
     res.json({});
   });
