@@ -12,9 +12,11 @@ const app =express();
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 require('./routes/apiRoutes')(app);
-require('./routes/htmlToutes')(app);
+require('./routes/htmlRoutes')(app);
 
 //Listener
 app.listen(PORT, () => {

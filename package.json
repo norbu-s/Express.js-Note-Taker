@@ -1,0 +1,26 @@
+{
+  "name": "notetaker",
+  "version": "1.0.0",
+  "description": "Application to store notes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/norbu-s/Express.js-Note-Taker.git"
+  },
+  "author": "Norbu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/norbu-s/Express.js-Note-Taker/issues"
+  },
+  "homepage": "https://github.com/norbu-s/Express.js-Note-Taker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "i": "^0.3.6",
+    "npm": "^7.5.6",
+    "path": "^0.12.7"
+  }
+}

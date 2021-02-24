@@ -1,47 +1,38 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+const generateUniqueId = require('generate-unique-id');
 
-let note = [{ id: 1, body: 'We have a text' }, { id: 2, body: 'This is a second text' }];
+const tableData = require('../data/tableData');
+const waitListData = require('../data/waitinglistData');
 
-//call the express and Body-parser
-const app = express();
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+const id = generateUniqueId({
+  length: 32,
+  useLetters: false
+});
+ 
 
-//serving static files
-app.use(express.static('public'));
-//we installed the ejs and created a file inside the views
-app.set('view engine', 'ejs');
+module.exports = (app) => {
 
-//We set up the route for the App. We first use the app.get option.
-app.get('/', function (req, res) {
-  res.render('notes', {
-    note: note
+  app.get('/api/tables', (req, res) => res.json(tableData));
+
+  app.get('/api/waitlist', (req, res) => res.json(waitListData));
+
+
+  app.post('/api/tables', (req, res) => {
+    if (tableData.length < 5) {
+      tableData.push(req.body);
+      res.json(true);
+    } else {
+      waitListData.push(req.body);
+      res.json(false);
+    }
   });
-});
 
-//then, we use app.post option.
-app.post("/addNotes", function (req, res) {
-  //assigning Note id to the notes using math.random
-  const userNote = {};
-  userNote.id = Math.random() * 100;
-  userNote.body = req.body.newNote
-  note.push(userNote);
-  //then we redirect it to the root route
-  res.redirect('/');
-});
+  app.post('/api/clear', (req, res) => {
+    tableData.length = 0;
+    waitListData.length = 0;
 
-//Handling the delete request
-
-app.post('/deleteNote/:id', function (req, res) {
-  console.log(req.params.id);
-  const deleteNotes = note.filter(item => item.id != req.params.id);
-  note = deleteNotes;
-  return res.redirect('/');
-});
-
-//then we set our server port. This should always be at bottom.
-app.listen({PORT} (), function => () {
-  console.log("NoteApp server is running at {PORT}}")
-});
+    res.json({ ok: true });
+  });
+};
