@@ -32,7 +32,7 @@ The main motivation for this project was to create an note taking application th
 
 # links
 * Github Repo - https://github.com/norbu-s/Express.js-Note-Taker
-* Heroku - 
+* Heroku - https://powerful-river-62039.herokuapp.com/
 
 ## Screenshots
 <img width="597" alt="Screen Shot 2021-02-26 at 9 58 14 am" src="https://user-images.githubusercontent.com/73917485/109231421-aa811080-781a-11eb-94a6-994019c5c08c.png">
