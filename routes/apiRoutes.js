@@ -43,16 +43,13 @@ module.exports = (app) => {
     res.json({});
   });
 
-  // //Delete a note
+  //Delete a note
   // app.delete("/api/notes/:id", (req, res) => {
-  //   const notes = JSON.parse(
-  //     fs.readFileSync(path.join(__dirname, "../db/db.json"))
-  //   );
-  //   res.send(path.join(__dirname, "../db/db.json"));
-  //   notes.push({
-  //     id: '',
-  //     title: '',
-  //     text:'' ,
+  //   const id = req.params.id;
+
+  //   req.db.get('id').remove({'id': id}, function(error, document) {
+  //     if (error) response.send(error);
+  //     return response.send("deleted");
+  //    });
   //   });
-  // });
 };
